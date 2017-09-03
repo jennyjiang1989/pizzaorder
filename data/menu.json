@@ -1,0 +1,19 @@
+{
+  "size":[
+    {"type":"large","amount":"20"},
+    {"type":"medium","amount":"15"},
+    {"type":"small","amount":"10"}
+  ],
+  "crust":[
+    {"type":"thick","amount":"0"},
+    {"type":"thin","amount":"0"}
+  ],
+  "toppings":[
+    {"type":"pepperoni","amount":"2"},
+    {"type":"chicken","amount":"2"},
+    {"type":"cheese","amount":"1"},
+    {"type":"tomato","amount":"1"},
+    {"type":"mashroom","amount":"1"},
+    {"type":"green pepper","amount":"1"}
+  ]
+}

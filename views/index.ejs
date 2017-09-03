@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pizza Order Website</title>
+<!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+<div class="container">
+<h1>Order Pizza @ Jenny's Store</h1>
+
+<ul class="nav nav-tabs">
+<li class="active"><a href="/">Order Pizza</a></li>
+<li><a href="/orders">Orders</a></li>
+</ul>
+
+<br/>
+<div class="row">
+<div class="col-md-6">
+<form method="post" id="submitForm">
+<!--
+<div class="form-group">
+<label for="courseNo">Course Number</label>
+<input type="text" required class="form-control" name="courseNo" id="courseNo" placeholder="Enter course number">
+</div>
+<div class="form-group">
+<label for="title">Title</label>
+<input class="form-control" required id="title" name="title" placeholder="Title">
+</div>
+<div class="form-group">
+<label for="description">Description</label>
+
+<textarea class="form-control" rows="3" id="description" name="description"></textarea>
+</div>
+<button type="submit" class="btn btn-success">Submit</button>
+-->
+  <h4>1. Please pick a size:</h4>
+  <% data.size.forEach(function(si){ %>
+  <input type="radio" name="size" id="size" value="<%=si.type %>" required> <%=si.type %> ($<%=si.amount %>)<br>
+  <% }) %>
+
+  <h4>2. Please pick a crust:</h4>
+  <% data.crust.forEach(function(cru){ %>
+  <input type="radio" name="crust" id="crust" value="<%=cru.type %>" required> <%=cru.type %> ($<%=cru.amount %>)<br>
+  <% }) %>
+
+  <h4>3. Please pick your toppings:</h4>
+  <div class="toppingGroup">    
+  <% data.toppings.forEach(function(topping){ %>
+    <input type="checkbox" name="toppings" value="<%=topping.type %>" /> <%=topping.type %> ($<%=topping.amount %>)<br>
+  <% }) %>
+  </div>
+
+  <h4>4. How many pizzas do you want?</h4>
+  <input type="number" name="quantity" id="quantity" min="1" required/>
+
+  <h4>5. What's your phone number?</h4>
+  <input type="text" name="phone" id="phone" required/>
+
+  <h4>6. What's your address?</h4>
+  <textarea name="address" id="address" rows="5" cols="50" required></textarea><br>
+  <br>
+  <button type="button" class="btn btn-info btn-lg" id="generateConfirmCode">Submit</button>
+<div class="form-group margin-bottom-10">
+</div>
+<div id="statusMsg">
+</div>
+</form>
+
+</div>
+</div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm Order</h4>
+            </div>
+            <div class="modal-body">
+                Security Code:<input type="text" id="securityCode">
+                <br/>
+                <div id="errorMessage"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="placeOrder">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="javascripts/index.js"></script>
+</html>
