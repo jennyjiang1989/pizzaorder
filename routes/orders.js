@@ -8,6 +8,7 @@ var menu = require('../data/menu.json');
 var AWS = require('aws-sdk');
 AWS.config.region = 'us-east-1';
 var sns = new AWS.SNS();
+var AdminPassword = '654321';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -69,17 +70,40 @@ router.post('/api/generateConfirmCode', function(req, res, next) {
 
 router.get('/api/orders', function (req, res, next) {
     console.log("Received a request for /api/orders");
-    Order.find({}, function (err, orders) {
+    Order.find({}, null, {sort: {state: 1, date:-1}}, function (err, orders) {
         if (err) {
+            console.log('Failed to get order list' + err);
             return next(err);
         }
         res.json(orders)
     });
 });
 
+router.post('/api/deliverOrder', function (req, res, next) {
+    console.log('Deliver order' + req.body.order);
+    if (req.body.password != AdminPassword) {
+        res.json({'succeed': false, 'message': 'Invalid Administrator Password'});
+    } else {
+        Order.findById(req.body.order, function (err, order) {
+            if (err) {
+                res.json({'succeed': false, 'message': err});
+            } else {
+                order.state='Delivered';
+                order.save(function(err) {
+                    if (err) {
+                        res.json({'succeed': false, 'message': err});
+                    } else {
+                        res.json({'succeed': true, 'message': ''});
+                    }
+                });
+            }
+        });
+    }
+});
+
 router.post('/api/deleteOrder', function (req, res, next) {
     console.log('Delete order' + req.body.order);
-    if (req.body.password != '654321') {
+    if (req.body.password != AdminPassword) {
         res.json({'succeed': false, 'message': 'Invalid Administrator Password'});
     } else {
         Order.remove({ _id: req.body.order }, function(err) {
@@ -126,7 +150,8 @@ router.post('/api/orders', function (req, res, next) {
         quantity: req.body.quantity,
         phone: req.body.phone,
         address: req.body.address,
-        price: 'CAD'+ price,
+        price: '$'+ price,
+        state: 'Baking',
         date: new Date()
     });
     console.log("The order details: " + order);

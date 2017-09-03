@@ -9,6 +9,7 @@ var OrderSchema = new Schema({
   phone: String,
   address: String,
   price: String,
+  state: String,
   date:{
     type: Date,
     default: Date.now
