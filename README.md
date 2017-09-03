@@ -2,6 +2,8 @@
 
 Jenny's Online Pizza Order 
 
+http://pizzaorder.tk/
+
 ## Install
 brew install mongodb
 mongod &
