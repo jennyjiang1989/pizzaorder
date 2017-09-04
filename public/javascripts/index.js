@@ -7,6 +7,11 @@ function showError(msg) {
 }
 $(function ready() {
     $("#generateConfirmCode").on('click', function(event) {
+        var valid = $("#submitForm")[0].checkValidity();
+        if (!valid) {
+            $("#checkFormButton").click();
+            return ;
+        }
         $.ajax({
             url: '/api/generateConfirmCode',
             type: 'POST',
