@@ -11,7 +11,7 @@ function deliverOrder(orderId) {
     return false;
 }
 function ajaxUpdateOrder() {
-    if ($('#action').val() == 'Delete Order') {
+    if ($('#action').html() == 'Delete Order') {
         ajaxDeleteOrder();
     } else {
         ajaxDeliverOrder();
